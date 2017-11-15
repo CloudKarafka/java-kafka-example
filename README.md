@@ -28,6 +28,5 @@ mvn clean compile assembly:single
 java -jar target/kafka-1.0-SNAPSHOT-jar-with-dependencies.jar
 ```
 
-This will start a java application that pushes messages to Kafka in one Thread and read messages in the main Thread. 
-The output you will see in the terminal is the messages received from in the consumer.
-
+This will start a Java application that pushes messages to Kafka in one Thread and read messages in the main Thread. 
+The output you will see in the terminal is the messages received in the consumer.
