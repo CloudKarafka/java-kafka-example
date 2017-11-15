@@ -1,12 +1,13 @@
-# Use CloudAMQP in Java from Heroku
+# Use CloudKarafka in Java from Heroku
 
-This project illustrates how to use the [Java client AMQP library]() to access [CloudAMQP](http://www.cloudamqp.com) from [Heroku](http://www.heroku.com). 
+Example code for connecting to a Apache Kafka cluster and authenticate with SSL_SASL and SCRAM. 
 
-It consists of one [worker](https://github.com/cloudamqp/java-amqp-example/blob/master/src/main/java/WorkerProcess.java) which listens to a queue and prints the messages to the console (and thus to the Heroku log), and a ["oneoff" process](https://github.com/cloudamqp/java-amqp-example/blob/master/src/main/java/WorkerProcess.java) which enqeues messages to that queue. 
+## Running locally
 
-For more information on AMQP and how to use it from Java, see [RabbitMQ's tutorial](http://www.rabbitmq.com/getstarted.html). 
 
-## Usage
+
+
+## Deploy to Heroku
 
 Click this button to deploy the sample code to a new app on Heroku for free:
 
