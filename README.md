@@ -1,4 +1,4 @@
-# Use CloudKarafka in Java from Heroku
+# Apache Kafka example for Java
 
 Example code for connecting to a Apache Kafka cluster and authenticate with SSL_SASL and SCRAM. 
 
