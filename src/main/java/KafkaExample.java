@@ -4,6 +4,8 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.common.serialization.StringSerializer;
+import org.apache.kafka.common.serialization.StringDeserializer;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -19,8 +21,8 @@ public class KafkaExample {
         String jaasTemplate = "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"%s\" password=\"%s\";";
         String jaasCfg = String.format(jaasTemplate, username, password);
 
-        String serializer = org.apache.kafka.common.serialization.StringSerializer.class.getName();
-        String deserializer = org.apache.kafka.common.serialization.StringDeserializer.class.getName();
+        String serializer = StringSerializer.class.getName();
+        String deserializer = StringDeserializer.class.getName();
         props = new Properties();
         props.put("bootstrap.servers", brokers);
         props.put("group.id", "newer");
