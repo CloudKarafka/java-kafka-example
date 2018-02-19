@@ -71,7 +71,7 @@ public class KafkaExample {
     }
 
     public static void main(String[] args) {
-        String topic = System.getenv("CLOUDKARAFKA_TOPIC_PREFIX") + ".test";
+        String topic = System.getenv("CLOUDKARAFKA_TOPIC_PREFIX") + "-default";
         KafkaExample c = new KafkaExample(
                 System.getenv("CLOUDKARAFKA_BROKERS"), topic,
                 System.getenv("CLOUDKARAFKA_USERNAME"), System.getenv("CLOUDKARAFKA_PASSWORD"));
