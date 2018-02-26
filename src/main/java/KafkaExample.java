@@ -15,8 +15,8 @@ public class KafkaExample {
     private final String topic;
     private final Properties props;
 
-    public KafkaExample(String brokers, String topic, String username, String password) {
-        this.topic = topic;
+    public KafkaExample(String brokers, String username, String password) {
+        this.topic = username + "-default";
 
         String jaasTemplate = "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"%s\" password=\"%s\";";
         String jaasCfg = String.format(jaasTemplate, username, password);
@@ -25,7 +25,7 @@ public class KafkaExample {
         String deserializer = StringDeserializer.class.getName();
         props = new Properties();
         props.put("bootstrap.servers", brokers);
-        props.put("group.id", "newer");
+        props.put("group.id", username + "-consumer");
         props.put("enable.auto.commit", "true");
         props.put("auto.commit.interval.ms", "1000");
         props.put("auto.offset.reset", "earliest");
@@ -43,9 +43,12 @@ public class KafkaExample {
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
         consumer.subscribe(Arrays.asList(topic));
         while (true) {
-            ConsumerRecords<String, String> records = consumer.poll(100);
-            for (ConsumerRecord<String, String> record : records)
-                System.out.printf("offset = %d, key = %s, value = %s\n", record.offset(), record.key(), record.value());
+            ConsumerRecords<String, String> records = consumer.poll(1000);
+            for (ConsumerRecord<String, String> record : records) {
+                System.out.printf("%s [%d] offset=%d, key=%s, value=\"%s\"\n",
+								  record.topic(), record.partition(),
+								  record.offset(), record.key(), record.value());
+			}
         }
     }
 
@@ -61,7 +64,6 @@ public class KafkaExample {
                         Thread.sleep(1000);
                         i++;
                     }
-                    //producer.close();
                 } catch (InterruptedException v) {
                     System.out.println(v);
                 }
@@ -71,10 +73,10 @@ public class KafkaExample {
     }
 
     public static void main(String[] args) {
-        String topic = System.getenv("CLOUDKARAFKA_TOPIC_PREFIX") + "-default";
-        KafkaExample c = new KafkaExample(
-                System.getenv("CLOUDKARAFKA_BROKERS"), topic,
-                System.getenv("CLOUDKARAFKA_USERNAME"), System.getenv("CLOUDKARAFKA_PASSWORD"));
+		String brokers = System.getenv("CLOUDKARAFKA_BROKERS");
+		String username = System.getenv("CLOUDKARAFKA_USERNAME");
+		String password = System.getenv("CLOUDKARAFKA_PASSWORD");
+		KafkaExample c = new KafkaExample(brokers, username, password);
         c.produce();
         c.consume();
     }
