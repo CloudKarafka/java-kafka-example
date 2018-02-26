@@ -14,7 +14,6 @@ All of the authentication settings can be found in the Details page for your Clo
 
 ```
 export CLOUDKARAFKA_BROKERS=broker1:9094,broker2:9094,broker3:9094
-export CLOUDKARAFKA_TOPIC_PREFIX=<username>
 export CLOUDKARAFKA_USERNAME=<username>
 export CLOUDKARAFKA_PASSWORD=<password>
 ```
